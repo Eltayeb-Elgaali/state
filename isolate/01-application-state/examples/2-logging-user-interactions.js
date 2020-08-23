@@ -6,8 +6,13 @@
   State changes over time as users interact with it
 
   You can understand and debug your apps by storing a record of all
+  - state changes (how did state change after each interaction?)
+    you learned how this worked in the previous example
+    this is the data that is interesting for users
   - user interactions (what did they try to do? what input did they provide?)
-  - state changes (how did application state change after each interaction?)
+    this is data that is interesting for developers, and not users
+    things like: local variables, which handler was called, ...
+
 
   This is called "logging"
 
@@ -16,7 +21,7 @@
     - Implementation
     this very specific view helps to fix specific bugs
     but can make it hard to understand the big picture of your application
-  logging changes to important data in your will help you to see the big picture
+  logging changes to state will help you to see the big picture
     - Behavior
     seeing how the application progresses over longer period of times
     with the clutter of extra variables removed for clarity
@@ -32,7 +37,7 @@
 // --- initialize the application ---
 
 // this variable stores useful data for the user
-//  it is the application state
+//  it is the state
 const state = {
   favorite: -1,
   words: []
@@ -64,7 +69,7 @@ while (true) {
   // render all words saved in state into a user-friendly list
   const renderedWords = renderList(state.words);
   // this variable stores user input
-  //  the data it stores may become part of application state
+  //  the data it stores may become part of state
   const nextInput = prompt(`enter a word, or click "cancel" to finish. \n\nwords so far: \n${renderedWords}`);
   const addWordLog = {
     action: 'add word',
@@ -89,7 +94,7 @@ while (true) {
     continue;
   }
 
-  // add nextInput to program state
+  // add nextInput to state
   state.words.push(nextInput);
   // log the state change
   addWordLog.state = deepClone(state);
